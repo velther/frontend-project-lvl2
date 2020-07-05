@@ -1,13 +1,13 @@
 import path from 'path';
-import {readFileSync} from 'fs';
+import { readFileSync } from 'fs';
 
 import commander from 'commander';
 
 import runAction from './run-action.js';
 
-const {program} = commander;
+const { program } = commander;
 
-const {version} = JSON.parse(readFileSync(path.join(process.cwd(), './package.json')));
+const { version } = JSON.parse(readFileSync(path.join(process.cwd(), './package.json')));
 
 const cli = () => {
   program
@@ -18,6 +18,6 @@ const cli = () => {
     .action(runAction);
 
   program.parse(process.argv);
-}
+};
 
 export default cli;
