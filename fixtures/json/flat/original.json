@@ -1,0 +1,10 @@
+{
+  "numvalueeq": 1,
+  "numvalued": 4,
+  "strvalueeq": "equal",
+  "strvalued": "different",
+  "nullvalue": null,
+  "booleaneq": true,
+  "booleand": false,
+  "extraValueOrig": true
+}
