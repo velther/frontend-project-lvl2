@@ -1,0 +1,13 @@
+[
+    1
+  - 4
+  + 10
+    equal
+  - different
+  + somevalue
+    null
+    true
+  - false
+  + true
+    true
+]
