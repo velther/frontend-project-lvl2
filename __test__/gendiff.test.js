@@ -10,20 +10,23 @@ const __dirname = dirname(__filename);
 
 const fixturesPath = resolve(__dirname, join('..', '__fixtures__'));
 
-describe('check diff function', () => {
-  it('should compare objects correctly', () => {
-    const originalJson = JSON.parse(fs.readFileSync(join(fixturesPath, 'json', 'flat', 'original.json')));
-    const compareJson = JSON.parse(fs.readFileSync(join(fixturesPath, 'json', 'flat', 'compare.json')));
-    const resultDiff = fs.readFileSync(join(fixturesPath, 'json', 'flat', 'result.diff'), 'utf-8');
+const testPaths = fs.readdirSync(fixturesPath).reduce((result, formatDirName) => {
+  const formatPath = join(fixturesPath, formatDirName);
 
-    expect(gendiff(originalJson, compareJson)).toBe(resultDiff);
-  });
+  return {
+    ...result,
+    [formatDirName]: fs.readdirSync(formatPath).map((typeDirName) => join(formatPath, typeDirName)),
+  };
+}, {});
 
-  it('should compare arrays correctly', () => {
-    const originalJson = JSON.parse(fs.readFileSync(join(fixturesPath, 'json', 'flat', 'original-array.json')));
-    const compareJson = JSON.parse(fs.readFileSync(join(fixturesPath, 'json', 'flat', 'compare-array.json')));
-    const resultDiff = fs.readFileSync(join(fixturesPath, 'json', 'flat', 'result-array.diff'), 'utf-8');
+const formats = Object.keys(testPaths);
 
-    expect(gendiff(originalJson, compareJson)).toBe(resultDiff);
-  });
-});
+formats.forEach((format) => testPaths[format].forEach(
+  (fixtureDir) => test(fixtureDir, () => {
+    const originalPath = join(fixtureDir, `original.${format}`);
+    const comparePath = join(fixtureDir, `compare.${format}`);
+    const resultDiff = fs.readFileSync(join(fixtureDir, 'result.diff'), 'utf-8');
+
+    expect(gendiff(originalPath, comparePath)).toBe(resultDiff);
+  }),
+));

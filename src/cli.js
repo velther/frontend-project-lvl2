@@ -3,7 +3,7 @@ import { readFileSync } from 'fs';
 
 import commander from 'commander';
 
-import runAction from './run-action.js';
+import gendiff from './index.js';
 
 const { program } = commander;
 
@@ -15,7 +15,9 @@ const cli = () => {
     .description('Compares two configuration files and shows a difference.')
     .option('-f, --format [type]', 'output format')
     .arguments('<filepath1> <filepath2>')
-    .action(runAction);
+    .action((filepath1, filepath2) => {
+      console.log(gendiff(filepath1, filepath2));
+    });
 
   program.parse(process.argv);
 };

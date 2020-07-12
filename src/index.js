@@ -1,6 +1,10 @@
+import path from 'path';
+
+import parseFile from './parsers/index.js';
+
 const formatMessage = (key, value, isArray, sign = ' ') => `  ${sign} ${isArray ? '' : `${key}: `}${value}`;
 
-const gendiff = (original, compare) => {
+const compareParsedStructures = (original, compare) => {
   const isArray = Array.isArray(original) && Array.isArray(compare);
   const quotes = isArray ? '[]' : '{}';
   const diff = [];
@@ -23,6 +27,16 @@ const gendiff = (original, compare) => {
     }
   }
   return `${quotes[0]}\n${diff.join('\n')}\n${quotes[1]}`;
+};
+
+const gendiff = (filepath1, filepath2) => {
+  const resolvedPath1 = path.resolve(process.cwd(), filepath1);
+  const resolvedPath2 = path.resolve(process.cwd(), filepath2);
+
+  const parsedContents1 = parseFile(resolvedPath1);
+  const parsedContents2 = parseFile(resolvedPath2);
+
+  return compareParsedStructures(parsedContents1, parsedContents2);
 };
 
 export default gendiff;

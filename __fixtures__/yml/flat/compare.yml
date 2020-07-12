@@ -1,0 +1,8 @@
+numvalueeq: 1
+numvalued: 10
+strvalueeq: 'equal'
+strvalued: 'somevalue'
+nullvalue: null
+booleaneq: true
+booleand: true
+extraValueCompare: true

@@ -27,7 +27,8 @@
   },
   "homepage": "https://github.com/velther/frontend-project-lvl2#readme",
   "dependencies": {
-    "commander": "^5.1.0"
+    "commander": "^5.1.0",
+    "js-yaml": "^3.14.0"
   },
   "devDependencies": {
     "eslint": "^7.4.0",
